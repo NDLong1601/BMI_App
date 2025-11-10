@@ -7,116 +7,306 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const DemoValueListenableBuilder(),
+      initialRoute: '/splashScreen',
+      routes: {
+        '/splashScreen': (context) => const SplashScreen(),
+        '/homeScreen': (context) => const HomeScreen(),
+        '/profileScreen': (context) => const ProfileScreen(),
+        '/settingScreen': (context) => const SettingScreen(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Splash Screen'),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/homeScreen',
+                arguments: {'name': 'Tran Van Nguyen', 'age': 18},
+              );
+            },
+            child: Text("data"),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    String name = '';
+    int age = 0;
+    final arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    print('arguments: $arguments');
+    if (arguments != null) {
+      name = arguments['name'] ?? '';
+      age = arguments['age'] ?? 0;
+    }
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Home Screen'),
+          Text('Name: $name, Age: $age'),
+          TextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, '/profileScreen');
+            },
+            child: Text("Go to Profile Screen"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Profile Screen'),
+          TextButton(
+            onPressed: () async {
+              final result = await Navigator.pushNamed(
+                context,
+                '/settingScreen',
+              );
+              print('Result from SettingScreen: $result');
+            },
+            child: Text("Go to Setting Screen"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SettingScreen extends StatelessWidget {
+  const SettingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('SettingScreen Screen'),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, {'name': 'Nguyen Van A', 'age': 30});
+              // Navigator.popUntil(
+              //   context,
+              //   (route) => '/homeScreen' == route.settings.name,
+              // );
+            },
+            child: Text("Go to test Screen"),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// setState example
+class DemoWidget extends StatefulWidget {
+  const DemoWidget({super.key});
+
+  @override
+  State<DemoWidget> createState() => _DemoWidgetState();
+}
+
+class _DemoWidgetState extends State<DemoWidget> {
+  int counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          const SizedBox(height: 20),
+          Text('Counter: $counter'),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                counter++;
+              });
+            },
+            child: const Text('Increment Counter'),
+          ),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+        ],
+      ),
+    );
+  }
+}
+
+/// StatefulBuilder example
+class DemoStatefulBuilder extends StatelessWidget {
+  const DemoStatefulBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    int counter = 0;
+    return Scaffold(
+      body: Column(
+        children: [
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          const SizedBox(height: 20),
+          CounterWidget(),
+          StatefulBuilder(
+            builder: (context, innerSetState) {
+              return Column(
+                children: [
+                  Text('Counter: $counter'),
+                  ElevatedButton(
+                    onPressed: () {
+                      innerSetState(() {
+                        counter++;
+                      });
+                    },
+                    child: const Text('Increment Counter'),
+                  ),
+                ],
+              );
+            },
+          ),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+        ],
+      ),
+    );
+  }
+}
+
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State<CounterWidget> createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  int counter = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Counter: $counter'),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              counter++;
+            });
+          },
+          child: const Text('Increment Counter'),
+        ),
+      ],
+    );
+  }
+}
+
+/// ValueListenable Builder example
+
+ValueNotifier<int> counter = ValueNotifier<int>(0);
+
+class DemoValueListenableBuilder extends StatelessWidget {
+  const DemoValueListenableBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+          const SizedBox(height: 20),
+          ValueListenableBuilder(
+            valueListenable: counter,
+            builder: (context, value, child) {
+              return Column(
+                children: [
+                  Text('Counter: $value'),
+                  ElevatedButton(
+                    onPressed: () {
+                      counter.value++;
+                    },
+                    child: const Text('Increment Counter'),
+                  ),
+                ],
+              );
+            },
+          ),
+          InkWell(
+            child: Text('Hello, Flutter!'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TestWidget()),
+              );
+            },
+          ),
+          Text('Hello, Flutter!'),
+          Text('Hello, Flutter!'),
+        ],
+      ),
+    );
+  }
+}
+
+class TestWidget extends StatelessWidget {
+  const TestWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        child: ValueListenableBuilder(
+          valueListenable: counter,
+          builder: (context, value, child) {
+            return Text('Counter: $value');
+          },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
