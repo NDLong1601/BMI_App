@@ -3,6 +3,7 @@ import 'package:bmi_app/components/app_text.dart';
 import 'package:bmi_app/components/app_textstyle.dart';
 import 'package:bmi_app/const/app_color.dart';
 import 'package:bmi_app/core/enum/enum.dart';
+import 'package:bmi_app/routes/app_route.dart';
 import 'package:flutter/material.dart';
 
 class ResultScreen extends StatelessWidget {
@@ -12,20 +13,22 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final Map<String, dynamic> args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    double bmi = 0;
+    String bmiCategory = '---';
+    final Map<String, dynamic>? args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
-    final double bmi = args['bmi'];
-
-    String bmiCategory;
-    if (bmi < 18.5) {
-      bmiCategory = 'UNDERWEIGHT';
-    } else if (bmi < 25) {
-      bmiCategory = 'NORMAL';
-    } else if (bmi < 30) {
-      bmiCategory = 'OVERWEIGHT';
-    } else {
-      bmiCategory = 'OBESITY';
+    if (args != null) {
+      bmi = args['bmi'];
+      if (bmi < 18.5) {
+        bmiCategory = 'UNDERWEIGHT';
+      } else if (bmi < 25) {
+        bmiCategory = 'NORMAL';
+      } else if (bmi < 30) {
+        bmiCategory = 'OVERWEIGHT';
+      } else {
+        bmiCategory = 'OBESITY';
+      }
     }
 
     return Scaffold(
@@ -101,9 +104,9 @@ class ResultScreen extends StatelessWidget {
             onPressed: () => {
               Navigator.pushReplacementNamed(
                 context,
-                // '/calculator_Set_State_Screen',
-                // '/calculator_Stateful_Builder_Screen',
-                '/calculator_Value_Listenable_builder_Screen',
+                // AppRoute.calculatorSetStateScreen,
+                AppRoute.calculatorStatefulBuilderScreen,
+                // AppRoute.calculatorValueListenableBuilderScreen,
               ),
             },
           ),

@@ -4,6 +4,7 @@ import 'package:bmi_app/components/app_text.dart';
 import 'package:bmi_app/components/app_textstyle.dart';
 import 'package:bmi_app/const/app_color.dart';
 import 'package:bmi_app/core/enum/enum.dart';
+import 'package:bmi_app/routes/app_route.dart';
 import 'package:flutter/material.dart';
 
 class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
@@ -12,7 +13,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
+    // final double screenWidth = MediaQuery.of(context).size.width;
 
     int countAge = 30;
     int countWeight = 78;
@@ -41,7 +42,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
                 initialValue: countAge,
                 onChanged: (v) => countAge = v,
               ),
-              SizedBox(width: screenWidth * (21 / 393)),
+              // SizedBox(width: screenWidth * (21 / 393)),
               AppContainer1(
                 title: 'Weight (KG)',
                 initialValue: countWeight,
@@ -49,8 +50,6 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: screenHeight * (23 / 852)),
-          SizedBox(height: screenHeight * (23 / 852)),
           AppContainerSlider1(
             title: 'Height (CM)',
             initialValue: countHeight,
@@ -75,7 +74,7 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
               }
               Navigator.pushReplacementNamed(
                 context,
-                '/resultScreen',
+                AppRoute.resultScreen,
                 arguments: {'bmi': adjustedBmi},
               );
             },

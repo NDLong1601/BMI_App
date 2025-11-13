@@ -4,6 +4,7 @@ import 'package:bmi_app/components/app_text.dart';
 import 'package:bmi_app/components/app_textstyle.dart';
 import 'package:bmi_app/const/app_color.dart';
 import 'package:bmi_app/core/enum/enum.dart';
+import 'package:bmi_app/routes/app_route.dart';
 import 'package:flutter/material.dart';
 
 class BmiCalculatorSetStateScreen extends StatefulWidget {
@@ -58,12 +59,12 @@ class _BmiCalculatorSetStateScreenState
                 AppContainer(
                   title: 'Age',
                   initialCount: 30,
-                  onChanged: (value) => setState(() => countAge = value),
+                  onChanged: (value) => countAge = value,
                 ),
                 AppContainer(
                   title: 'Weight (KG)',
                   initialCount: 78,
-                  onChanged: (value) => setState(() => countWeight = value),
+                  onChanged: (value) => countWeight = value,
                 ),
               ],
             ),
@@ -71,12 +72,12 @@ class _BmiCalculatorSetStateScreenState
           AppContainerSlider(
             text: 'Height (CM)',
             initialCount: 175,
-            onChanged: (value) => setState(() => countHeight = value),
+            onChanged: (value) => countHeight = value,
           ),
           AppContainerSwitch(
             text: 'Gender',
             isMale: isMale,
-            onChanged: (v) => setState(() => isMale = v),
+            onChanged: (v) => isMale = v,
           ),
           AppButton(
             text: 'Calculate BMI',
@@ -92,7 +93,7 @@ class _BmiCalculatorSetStateScreenState
               }
               Navigator.pushReplacementNamed(
                 context,
-                '/resultScreen',
+                AppRoute.resultScreen,
                 arguments: {'bmi': adjustedBmi},
               );
             },

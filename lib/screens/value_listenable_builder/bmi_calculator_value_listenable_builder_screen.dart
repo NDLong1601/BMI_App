@@ -1,9 +1,12 @@
 import 'package:bmi_app/components/app_button.dart';
-import 'package:bmi_app/components/app_container.dart';
 import 'package:bmi_app/components/app_text.dart';
 import 'package:bmi_app/components/app_textstyle.dart';
 import 'package:bmi_app/const/app_color.dart';
 import 'package:bmi_app/core/enum/enum.dart';
+import 'package:bmi_app/routes/app_route.dart';
+import 'package:bmi_app/screens/value_listenable_builder/widgets/app_container_2.dart';
+import 'package:bmi_app/screens/value_listenable_builder/widgets/app_container_slider_2.dart';
+import 'package:bmi_app/screens/value_listenable_builder/widgets/app_container_switch_2.dart';
 import 'package:flutter/material.dart';
 
 class BmiCalculatorValueListenableBuilderScreen extends StatelessWidget {
@@ -33,35 +36,14 @@ class BmiCalculatorValueListenableBuilderScreen extends StatelessWidget {
               style: AppTextStyle.regularTsSize17Purple,
             ),
           ),
-          ValueListenableBuilder(
-            valueListenable: countAge,
-            builder: (context, value, child) {
-              return Row(
-                children: [
-                  AppContainer2(title: 'Age', valueNotifier: countAge),
-                  AppContainer2(title: 'Weight', valueNotifier: countWeight),
-                ],
-              );
-            },
+          Row(
+            children: [
+              AppContainer2(valueNotifier: countAge),
+              AppContainer2(isAge: false, valueNotifier: countWeight),
+            ],
           ),
-          ValueListenableBuilder(
-            valueListenable: countHeight,
-            builder: (context, value, child) {
-              return AppContainerSlider2(
-                title: 'Height (CM)',
-                valueNotifier: countHeight,
-              );
-            },
-          ),
-          ValueListenableBuilder<bool>(
-            valueListenable: isMale,
-            builder: (context, value, child) {
-              return AppContainerSwitch2(
-                title: 'Gender',
-                valueNotifier: isMale,
-              );
-            },
-          ),
+          AppContainerSlider2(title: 'Height (CM)', valueNotifier: countHeight),
+          AppContainerSwitch2(title: 'Gender', valueNotifier: isMale),
           AppButton(
             text: 'Calculate BMI',
             state: AppButtonState.purpleButton,
@@ -77,7 +59,7 @@ class BmiCalculatorValueListenableBuilderScreen extends StatelessWidget {
               }
               Navigator.pushReplacementNamed(
                 context,
-                '/resultScreen',
+                AppRoute.resultScreen,
                 arguments: {'bmi': adjustedBmi},
               );
             },

@@ -1,3 +1,4 @@
+import 'package:bmi_app/routes/app_route.dart';
 import 'package:bmi_app/screens/result_screen.dart';
 import 'package:bmi_app/screens/set_state/bmi_calculator_set_state_screen.dart';
 import 'package:bmi_app/screens/spash_screen.dart';
@@ -20,17 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: '/splashScreen',
-      routes: {
-        '/splashScreen': (context) => const SplashScreen(),
-        '/calculator_Set_State_Screen': (context) =>
-            const BmiCalculatorSetStateScreen(),
-        '/calculator_Stateful_Builder_Screen': (context) =>
-            const BmiCalculatorStatefulBuilderScreen(),
-        '/calculator_Value_Listenable_builder_Screen': (context) =>
-            const BmiCalculatorValueListenableBuilderScreen(),
-        '/resultScreen': (context) => const ResultScreen(),
-      },
+      initialRoute: AppRoute.splashScreen,
+      routes: AppRoute().routes,
     );
   }
 }

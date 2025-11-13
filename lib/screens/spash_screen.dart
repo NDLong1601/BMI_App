@@ -4,6 +4,7 @@ import 'package:bmi_app/components/app_textstyle.dart';
 import 'package:bmi_app/const/app_assets_path.dart';
 import 'package:bmi_app/const/app_color.dart';
 import 'package:bmi_app/core/enum/enum.dart';
+import 'package:bmi_app/routes/app_route.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -56,9 +57,9 @@ class SplashScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacementNamed(
                   context,
-                  // '/calculator_Set_State_Screen',
-                  // '/calculator_Stateful_Builder_Screen',
-                  '/calculator_Value_Listenable_builder_Screen',
+                  // AppRoute.calculatorSetStateScreen,
+                  AppRoute.calculatorStatefulBuilderScreen,
+                  // AppRoute.calculatorValueListenableBuilderScreen,
                 );
               },
             ),
