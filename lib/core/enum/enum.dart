@@ -1,1 +1,1 @@
-enum AppButtonState { whiteButton, purleButton }
+enum AppButtonState { whiteButton, purpleButton }

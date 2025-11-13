@@ -1,3 +1,8 @@
+import 'package:bmi_app/screens/result_screen.dart';
+import 'package:bmi_app/screens/set_state/bmi_calculator_set_state_screen.dart';
+import 'package:bmi_app/screens/spash_screen.dart';
+import 'package:bmi_app/screens/stateful_builder/bmi_calculator_stateful_builder_screen.dart';
+import 'package:bmi_app/screens/value_listenable_builder/bmi_calculator_value_listenable_builder_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,49 +16,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      // home: const DemoValueListenableBuilder(),
       initialRoute: '/splashScreen',
       routes: {
         '/splashScreen': (context) => const SplashScreen(),
-        '/homeScreen': (context) => const HomeScreen(),
-        '/profileScreen': (context) => const ProfileScreen(),
-        '/settingScreen': (context) => const SettingScreen(),
+        '/calculatorSetStateScreen': (context) => const BmiCalculatorSetStateScreen(),
+        '/calculatorStatefulBuilderScreen': (context) => const BmiCalculatorStatefulBuilderScreen(),
+        '/calculatorScreen': (context) => const BmiCalculatorValueListenableBuilderScreen(),
+        '/resultScreen': (context) => const ResultScreen(),
       },
     );
   }
 }
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Splash Screen'),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                '/homeScreen',
-                arguments: {'name': 'Tran Van Nguyen', 'age': 18},
-              );
-            },
-            child: Text("data"),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class CaculatorScreen extends StatelessWidget {
+  const CaculatorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +41,7 @@ class HomeScreen extends StatelessWidget {
     int age = 0;
     final arguments =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    print('arguments: $arguments');
+    // print('arguments: $arguments');
     if (arguments != null) {
       name = arguments['name'] ?? '';
       age = arguments['age'] ?? 0;
@@ -96,11 +76,11 @@ class ProfileScreen extends StatelessWidget {
           Text('Profile Screen'),
           TextButton(
             onPressed: () async {
-              final result = await Navigator.pushNamed(
-                context,
-                '/settingScreen',
-              );
-              print('Result from SettingScreen: $result');
+              // final result = await Navigator.pushNamed(
+              //   context,
+              //   '/settingScreen',
+              // );
+              // print('Result from SettingScreen: $result');
             },
             child: Text("Go to Setting Screen"),
           ),
