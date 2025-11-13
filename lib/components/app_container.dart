@@ -279,3 +279,523 @@ class _AppContainerSwitch extends State<AppContainerSwitch> {
     );
   }
 }
+
+/// Stateful Builder
+// AppContainer1
+class AppContainer1 extends StatelessWidget {
+  final String title;
+  final int initialValue;
+  final ValueChanged<int> onChanged;
+  final double width;
+  final double height;
+
+  const AppContainer1({
+    super.key,
+    required this.title,
+    required this.initialValue,
+    required this.onChanged,
+    this.width = 156 / 393,
+    this.height = 175 / 852,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return StatefulBuilder(
+      builder: (context, innerSetState) {
+        int value = initialValue;
+        return Container(
+          margin: EdgeInsets.only(left: screenWidth * (30 / 393)),
+          height: screenHeight * (height),
+          width: screenWidth * (width),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (17 / 852),
+                  bottom: screenHeight * (3 / 852),
+                ),
+                child: AppText(
+                  title: title,
+                  style: AppTextStyle.regularTsSize17Purple,
+                ),
+              ),
+              AppText(title: '$value', style: AppTextStyle.boldTsSize57Purple),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: screenWidth * (28 / 393),
+                  right: screenWidth * (28 / 393),
+                  bottom: screenHeight * (10 / 852),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        innerSetState(() {
+                          value = (value - 1).clamp(0, 999);
+                          onChanged(value);
+                        });
+                      },
+                      child: Image(image: AssetImage(AppAssetsPath.icDecrease)),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        innerSetState(() {
+                          value = (value + 1).clamp(0, 999);
+                          onChanged(value);
+                        });
+                      },
+                      child: Image(image: AssetImage(AppAssetsPath.icIncrease)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+// AppContainerSlider1
+class AppContainerSlider1 extends StatelessWidget {
+  final String title;
+  final double initialValue;
+  final ValueChanged<double> onChanged;
+  final double min;
+  final double max;
+
+  const AppContainerSlider1({
+    super.key,
+    required this.title,
+    required this.initialValue,
+    required this.onChanged,
+    this.min = 50,
+    this.max = 300,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return StatefulBuilder(
+      builder: (context, innerSetState) {
+        double value = initialValue;
+        return Container(
+          margin: EdgeInsets.only(top: screenHeight * (23 / 852)),
+          width: screenWidth * (333 / 393),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (18 / 852),
+                  bottom: screenHeight * (3 / 852),
+                ),
+                child: AppText(
+                  title: title,
+                  style: AppTextStyle.regularTsSize17Purple,
+                ),
+              ),
+              AppText(
+                title: value.toStringAsFixed(0),
+                style: AppTextStyle.boldTsSize57Purple,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: screenHeight * (10 / 852)),
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  thumbColor: AppColor.purple,
+                  activeTrackColor: AppColor.purple,
+                  inactiveTrackColor: Colors.grey[300],
+                  overlayColor: AppColor.purple.withValues(alpha: 0.2),
+                  thumbShape: const RoundSliderThumbShape(
+                    enabledThumbRadius: 10,
+                  ),
+                  trackHeight: 3,
+                ),
+                child: Slider(
+                  value: value,
+                  min: min,
+                  max: max,
+                  onChanged: (newValue) {
+                    innerSetState(() {
+                      value = newValue;
+                      onChanged(value);
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (5 / 852),
+                  left: screenWidth * (28 / 393),
+                  right: screenWidth * (30 / 393),
+                  bottom: screenHeight * (23 / 852),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText(
+                      title: '${min.toInt()} cm',
+                      style: AppTextStyle.regularTsSize13Black1,
+                    ),
+                    AppText(
+                      title: '${max.toInt()} cm',
+                      style: AppTextStyle.regularTsSize13Black1,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+// AppContainerSwitch1
+class AppContainerSwitch1 extends StatelessWidget {
+  final String title;
+  final bool initialValue;
+  final ValueChanged<bool> onChanged;
+
+  const AppContainerSwitch1({
+    super.key,
+    required this.title,
+    required this.initialValue,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return StatefulBuilder(
+      builder: (context, innerSetState) {
+        bool value = initialValue;
+        return Container(
+          margin: EdgeInsets.only(
+            bottom: screenHeight * (31 / 852),
+            top: screenHeight * (25 / 852),
+          ),
+          height: screenHeight * (135 / 852),
+          width: screenWidth * (333 / 393),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (25 / 852),
+                  bottom: screenHeight * (16 / 852),
+                ),
+                child: AppText(
+                  title: title,
+                  style: AppTextStyle.regularTsSize17Purple,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    title: 'Male',
+                    style: AppTextStyle.regularTsSize17Purple,
+                  ),
+                  SizedBox(width: screenWidth * (14 / 393)),
+                  Switch(
+                    value: value,
+                    activeThumbColor: AppColor.purple,
+                    inactiveThumbColor: Colors.grey,
+                    onChanged: (newValue) {
+                      innerSetState(() {
+                        value = newValue;
+                        onChanged(value);
+                      });
+                    },
+                  ),
+                  SizedBox(width: screenWidth * (20 / 393)),
+                  AppText(
+                    title: 'Female',
+                    style: AppTextStyle.regularTsSize17Purple,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// Value Listenable builder
+// AppContainer2
+class AppContainer2 extends StatelessWidget {
+  final String title;
+  final ValueNotifier<int> valueNotifier;
+  final double width;
+  final double height;
+
+  const AppContainer2({
+    super.key,
+    required this.title,
+    required this.valueNotifier,
+    this.width = 156 / 393,
+    this.height = 175 / 852,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return ValueListenableBuilder<int>(
+      valueListenable: valueNotifier,
+      builder: (context, value, child) {
+        return Container(
+          margin: EdgeInsets.only(left: screenWidth * (25 / 393)),
+          height: screenHeight * (height),
+          width: screenWidth * (width),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (17 / 852),
+                  bottom: screenHeight * (3 / 852),
+                ),
+                child: AppText(
+                  title: title,
+                  style: AppTextStyle.regularTsSize17Purple,
+                ),
+              ),
+              AppText(title: '$value', style: AppTextStyle.boldTsSize57Purple),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: screenWidth * (28 / 393),
+                  right: screenWidth * (28 / 393),
+                  bottom: screenHeight * (10 / 852),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        valueNotifier.value = (valueNotifier.value - 1).clamp(
+                          0,
+                          999,
+                        );
+                      },
+                      child: Image(image: AssetImage(AppAssetsPath.icDecrease)),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        valueNotifier.value = (valueNotifier.value + 1).clamp(
+                          0,
+                          999,
+                        );
+                      },
+                      child: Image(image: AssetImage(AppAssetsPath.icIncrease)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+// AppContainerSlider2
+class AppContainerSlider2 extends StatelessWidget {
+  final String title;
+  final ValueNotifier<double> valueNotifier;
+  final double min;
+  final double max;
+
+  const AppContainerSlider2({
+    super.key,
+    required this.title,
+    required this.valueNotifier,
+    this.min = 50,
+    this.max = 300,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return ValueListenableBuilder<double>(
+      valueListenable: valueNotifier,
+      builder: (context, value, child) {
+        return Container(
+          margin: EdgeInsets.only(top: screenHeight * (23 / 852)),
+          width: screenWidth * (333 / 393),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (18 / 852),
+                  bottom: screenHeight * (3 / 852),
+                ),
+                child: AppText(
+                  title: title,
+                  style: AppTextStyle.regularTsSize17Purple,
+                ),
+              ),
+              AppText(
+                title: value.toStringAsFixed(0),
+                style: AppTextStyle.boldTsSize57Purple,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: screenHeight * (10 / 852)),
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  thumbColor: AppColor.purple,
+                  activeTrackColor: AppColor.purple,
+                  inactiveTrackColor: Colors.grey[300],
+                  overlayColor: AppColor.purple.withValues(alpha: 0.2),
+                  thumbShape: const RoundSliderThumbShape(
+                    enabledThumbRadius: 10,
+                  ),
+                  trackHeight: 3,
+                ),
+                child: Slider(
+                  value: value,
+                  min: min,
+                  max: max,
+                  onChanged: (newValue) {
+                    valueNotifier.value = newValue;
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (5 / 852),
+                  left: screenWidth * (28 / 393),
+                  right: screenWidth * (30 / 393),
+                  bottom: screenHeight * (23 / 852),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppText(
+                      title: '${min.toInt()} cm',
+                      style: AppTextStyle.regularTsSize13Black1,
+                    ),
+                    AppText(
+                      title: '${max.toInt()} cm',
+                      style: AppTextStyle.regularTsSize13Black1,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+// AppContainerSwitch2
+class AppContainerSwitch2 extends StatelessWidget {
+  final String title;
+  final ValueNotifier<bool> valueNotifier;
+
+  const AppContainerSwitch2({
+    super.key,
+    required this.title,
+    required this.valueNotifier,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return ValueListenableBuilder<bool>(
+      valueListenable: valueNotifier,
+      builder: (context, value, child) {
+        return Container(
+          margin: EdgeInsets.only(
+            bottom: screenHeight * (31 / 852),
+            top: screenHeight * (25 / 852),
+          ),
+          height: screenHeight * (135 / 852),
+          width: screenWidth * (333 / 393),
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenHeight * (25 / 852),
+                  bottom: screenHeight * (16 / 852),
+                ),
+                child: AppText(
+                  title: title,
+                  style: AppTextStyle.regularTsSize17Purple,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppText(
+                    title: 'Male',
+                    style: AppTextStyle.regularTsSize17Purple,
+                  ),
+                  SizedBox(width: screenWidth * (14 / 393)),
+                  Switch(
+                    value: value,
+                    activeThumbColor: AppColor.purple,
+                    inactiveThumbColor: Colors.grey,
+                    onChanged: (newValue) {
+                      valueNotifier.value = newValue;
+                    },
+                  ),
+                  SizedBox(width: screenWidth * (20 / 393)),
+                  AppText(
+                    title: 'Female',
+                    style: AppTextStyle.regularTsSize17Purple,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

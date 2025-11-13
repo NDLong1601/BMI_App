@@ -35,17 +35,16 @@ class _BmiCalculatorSetStateScreenState
     return Scaffold(
       backgroundColor: AppColor.lightwhite,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: screenHeight * (54 / 852),
-                bottom: screenHeight * (39 / 852),
-              ),
-              child: AppText(
-                title: 'BMI CALCULATOR',
-                style: AppTextStyle.regularTsSize17Purple,
-              ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenHeight * (54 / 852),
+              bottom: screenHeight * (39 / 852),
+            ),
+            child: AppText(
+              title: 'BMI CALCULATOR',
+              style: AppTextStyle.regularTsSize17Purple,
             ),
           ),
           Padding(

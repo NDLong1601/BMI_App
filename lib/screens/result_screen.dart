@@ -98,7 +98,14 @@ class ResultScreen extends StatelessWidget {
           AppButton(
             text: 'Save the result',
             state: AppButtonState.purpleButton,
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.pushReplacementNamed(
+                context,
+                // '/calculator_Set_State_Screen',
+                // '/calculator_Stateful_Builder_Screen',
+                '/calculator_Value_Listenable_builder_Screen',
+              ),
+            },
           ),
         ],
       ),
