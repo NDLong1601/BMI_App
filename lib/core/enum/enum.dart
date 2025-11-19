@@ -1,0 +1,1 @@
+enum AppButtonState { whiteButton, purpleButton }

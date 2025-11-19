@@ -1,0 +1,107 @@
+import 'package:bmi_app/components/app_text.dart';
+import 'package:bmi_app/components/app_textstyle.dart';
+import 'package:bmi_app/const/app_color.dart';
+import 'package:flutter/material.dart';
+
+class AppContainerSlider extends StatefulWidget {
+  final String text;
+  final double initialCount;
+  final ValueChanged<double>? onChanged;
+
+  const AppContainerSlider({
+    super.key,
+    required this.text,
+    required this.initialCount,
+    this.onChanged,
+  });
+
+  @override
+  State<AppContainerSlider> createState() => _AppContainerSlider();
+}
+
+class _AppContainerSlider extends State<AppContainerSlider> {
+  late String text;
+  late double countHeight;
+  @override
+  void initState() {
+    super.initState();
+    countHeight = widget.initialCount;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return Container(
+      margin: EdgeInsets.only(top: screenHeight * (23 / 852)),
+      width: screenWidth * (333 / 393),
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenHeight * (18 / 852),
+              bottom: screenHeight * (3 / 852),
+            ),
+            child: AppText(
+              title: widget.text,
+              style: AppTextStyle.regularTsSize17Purple,
+            ),
+          ),
+          AppText(
+            title: countHeight.toStringAsFixed(0),
+            style: AppTextStyle.boldTsSize57Purple,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: screenHeight * (10 / 852)),
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              thumbColor: AppColor.purple,
+              activeTrackColor: AppColor.purple,
+              inactiveTrackColor: Colors.grey[300],
+              overlayColor: AppColor.purple.withValues(alpha: 0.2),
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
+              trackHeight: 3,
+            ),
+            child: Slider(
+              value: countHeight,
+              min: 50,
+              max: 300,
+              onChanged: (value) {
+                setState(() {
+                  countHeight = value;
+                });
+                widget.onChanged?.call(countHeight);
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenHeight * (5 / 852),
+              left: screenWidth * (28 / 393),
+              right: screenWidth * (30 / 393),
+              bottom: screenHeight * (23 / 852),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppText(
+                  title: '50 cm',
+                  style: AppTextStyle.regularTsSize13Black1,
+                ),
+                AppText(
+                  title: '300 cm',
+                  style: AppTextStyle.regularTsSize13Black1,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
