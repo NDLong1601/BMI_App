@@ -1,10 +1,12 @@
 import 'package:bmi_app/components/app_button.dart';
-import 'package:bmi_app/components/app_container.dart';
 import 'package:bmi_app/components/app_text.dart';
 import 'package:bmi_app/components/app_textstyle.dart';
 import 'package:bmi_app/const/app_color.dart';
 import 'package:bmi_app/core/enum/enum.dart';
 import 'package:bmi_app/routes/app_route.dart';
+import 'package:bmi_app/screens/stateful_builder/widgets/app_container_1.dart';
+import 'package:bmi_app/screens/stateful_builder/widgets/app_container_slider_1.dart';
+import 'package:bmi_app/screens/stateful_builder/widgets/app_container_switch_1.dart';
 import 'package:flutter/material.dart';
 
 class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
@@ -42,7 +44,6 @@ class BmiCalculatorStatefulBuilderScreen extends StatelessWidget {
                 initialValue: countAge,
                 onChanged: (v) => countAge = v,
               ),
-              // SizedBox(width: screenWidth * (21 / 393)),
               AppContainer1(
                 title: 'Weight (KG)',
                 initialValue: countWeight,

@@ -105,8 +105,8 @@ class ResultScreen extends StatelessWidget {
               Navigator.pushReplacementNamed(
                 context,
                 // AppRoute.calculatorSetStateScreen,
-                AppRoute.calculatorStatefulBuilderScreen,
-                // AppRoute.calculatorValueListenableBuilderScreen,
+                // AppRoute.calculatorStatefulBuilderScreen,
+                AppRoute.calculatorValueListenableBuilderScreen,
               ),
             },
           ),

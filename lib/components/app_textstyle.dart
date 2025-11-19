@@ -2,10 +2,6 @@ import 'package:bmi_app/const/app_color.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyle {
-  /// Regular -> 400
-  /// Medium -> 500
-  /// Bold -> 700
-
   static TextStyle italicTsSize30White = TextStyle(
     fontFamily: 'Inter',
     fontSize: 30,

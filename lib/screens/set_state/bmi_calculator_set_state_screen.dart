@@ -1,10 +1,12 @@
 import 'package:bmi_app/components/app_button.dart';
-import 'package:bmi_app/components/app_container.dart';
 import 'package:bmi_app/components/app_text.dart';
 import 'package:bmi_app/components/app_textstyle.dart';
 import 'package:bmi_app/const/app_color.dart';
 import 'package:bmi_app/core/enum/enum.dart';
 import 'package:bmi_app/routes/app_route.dart';
+import 'package:bmi_app/screens/set_state/widgets/app_container.dart';
+import 'package:bmi_app/screens/set_state/widgets/app_container_slider.dart';
+import 'package:bmi_app/screens/set_state/widgets/app_container_switch.dart';
 import 'package:flutter/material.dart';
 
 class BmiCalculatorSetStateScreen extends StatefulWidget {
